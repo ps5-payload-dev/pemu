@@ -1,0 +1,42 @@
+name: ps5-release
+
+on:
+  push:
+    tags:
+      - "v*.*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install bash clang-18 lld-18
+          sudo apt install build-essential cmake zip
+
+      - name: Install toolchain
+        run: |
+          wget https://github.com/ps5-payload-dev/pacbrew-repo/releases/latest/download/ps5-payload-dev.tar.gz
+          sudo tar xf ps5-payload-dev.tar.gz -C /
+
+      - name: Build
+        run: |
+          /opt/ps5-payload-sdk/bin/prospero-cmake -DCMAKE_BUILD_TYPE=Release -DPLATFORM_PS5=YES -DOPTION_MPV_PLAYER=NO -S . -B build
+           make -C build pnes_ps5_release
+           make -C build pgba_ps5_release
+           make -C build pfbneo.deps
+           make -C build pfbneo_ps5_release
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: pemu
+          path: build/*.zip
+          if-no-files-found: error
