@@ -6,7 +6,7 @@
 
 C2DUIVideo::C2DUIVideo(UiMain *u, uint8_t **_pixels, int *_pitch,
                        const c2d::Vector2i &size, const c2d::Vector2i &a, Texture::Format format)
-        : C2DTexture(size, format) {
+    : C2DTexture(size, format) {
     ui = u;
     aspect = a;
 
@@ -16,15 +16,14 @@ C2DUIVideo::C2DUIVideo(UiMain *u, uint8_t **_pixels, int *_pitch,
     }
 }
 
-void C2DUIVideo::updateScaling(bool vertical, bool flip) {
+void C2DUIVideo::updateScaling(const bool vertical, const bool flip) {
     bool rotated = false;
     float rotation = 0;
     int rotation_cfg = 0;
     std::string scale_value = ui->getConfig()->get(PEMUConfig::OptId::EMU_SCALING, true)->getString();
     float scale_value_float = (float) ui->getConfig()->get(PEMUConfig::OptId::EMU_SCALING, true)->getArrayIndex() + 1;
     std::string scaling_mode = ui->getConfig()->get(PEMUConfig::OptId::EMU_SCALING_MODE, true)->getString();
-    float game_aspect_ratio = vertical ? (float) aspect.y / (float) aspect.x
-                                       : (float) aspect.x / (float) aspect.y;
+    float game_aspect_ratio = vertical ? (float) aspect.y / (float) aspect.x : (float) aspect.x / (float) aspect.y;
     c2d::config::Option *rotationOpt = ui->getConfig()->get(PEMUConfig::OptId::EMU_ROTATION, true);
     if (rotationOpt) {
         rotation_cfg = rotationOpt->getArrayIndex();
@@ -65,8 +64,7 @@ void C2DUIVideo::updateScaling(bool vertical, bool flip) {
         scale.y = rotated ? scale_max.x : scale_max.y;
     } else {
         if (!rotated) {
-            // scale_value_float 4 == FIT
-            scale.y = scale_value_float == 4 ? scale_max.y : std::min(scale_max.y, scale_value_float);
+            scale.y = scale_value == "FIT" ? scale_max.y : std::min(scale_max.y, scale_value_float);
             float size_x = ((float) getTextureRect().height * scale.y) * game_aspect_ratio;
             if (scaling_mode == "AUTO") {
                 scale.x = size_x / (float) getTextureRect().width;
@@ -81,8 +79,7 @@ void C2DUIVideo::updateScaling(bool vertical, bool flip) {
                 scale.x = scale.y;
             }
         } else {
-            // scale_value_float 4 == FIT
-            scale.x = scale_value_float == 4 ? scale_max.y : std::min(scale_max.y, scale_value_float);
+            scale.x = scale_value == "FIT" ? scale_max.y : std::min(scale_max.y, scale_value_float);
             float size_y = ((float) getTextureRect().width * scale.x) / game_aspect_ratio;
             if (scaling_mode == "AUTO") {
                 scale.y = size_y / (float) getTextureRect().height;

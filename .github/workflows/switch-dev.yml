@@ -24,6 +24,11 @@ jobs:
           sudo apt -yq update
           sudo apt -yq install git build-essential cmake zip
 
+      - name: Install "fixed" libmpv
+        run: |
+          wget https://github.com/Cpasjuste/pacman-packages/releases/download/switch-libmpv-0.41.0/switch-libmpv-0.41.0-1-any.pkg.tar.zst
+          sudo dkp-pacman -U --noconfirm switch-libmpv-0.41.0-1-any.pkg.tar.zst
+
       - name: Configure
         run: |
           cd $GITHUB_WORKSPACE
