@@ -4,6 +4,7 @@
 
 #include "skeleton/pemu.h"
 #include "pgba_ui_emu.h"
+
 extern "C" {
 #include "mgba-util/vfs.h"
 //#include "mgba/core/log.h" // PS4: error
@@ -69,15 +70,15 @@ int PGBAUiEmu::load(const ss_api::Game &game) {
     //char savePath[512];
     //strncpy(savePath, "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pgba/saves", 511);
     mCoreOptions core_options = {
-            .useBios = true,
-            .logLevel = 0x01 | 0x02 | 0x04,
-            .rewindEnable = false,
-            .rewindBufferCapacity = 600,
-            //.rewindBufferInterval = 1,
-            .audioBuffers = 1024,
-            .volume = 0x100,
-            .videoSync = false,
-            .audioSync = true
+        .useBios = true,
+        .logLevel = 0x01 | 0x02 | 0x04,
+        .rewindEnable = false,
+        .rewindBufferCapacity = 600,
+        //.rewindBufferInterval = 1,
+        .audioBuffers = 1024,
+        .volume = 0x100,
+        .videoSync = false,
+        .audioSync = true
     };
     mCoreConfigLoadDefaults(&s_core->config, &core_options);
     mCoreLoadConfig(s_core);
@@ -88,9 +89,9 @@ int PGBAUiEmu::load(const ss_api::Game &game) {
     std::string patchPath = dataPath + "patches";
     std::string cheatPath = dataPath + "cheats";
     mCoreOptions opts = {
-            .savegamePath =  (char *) savePath.c_str(),
-            .patchPath = (char *) patchPath.c_str(),
-            .cheatsPath = (char *) cheatPath.c_str()
+        .savegamePath = (char *) savePath.c_str(),
+        .patchPath = (char *) patchPath.c_str(),
+        .cheatsPath = (char *) cheatPath.c_str()
     };
     mDirectorySetMapOptions(&s_core->dirs, &opts);
 
@@ -102,15 +103,15 @@ int PGBAUiEmu::load(const ss_api::Game &game) {
     }
 
     // video output - determine resolution based on platform
-    unsigned width, height;  
+    unsigned width, height;
     if (s_core->platform(s_core) == mPLATFORM_GB) {
-        struct GB* gb = (struct GB*)s_core->board;
-        
+        struct GB *gb = (struct GB *) s_core->board;
+
         // Scan ROM header to detect Super Game Boy support
         uint8_t sgbFlag = gb->memory.rom[0x146];
         uint8_t oldLicensee = gb->memory.rom[0x14B];
         bool isSGBRom = (sgbFlag == 0x03 && oldLicensee == 0x33);
-        
+
         // Set resolution based on SGB support
         if (isSGBRom) {
             width = 256;
@@ -122,10 +123,10 @@ int PGBAUiEmu::load(const ss_api::Game &game) {
     } else {
         s_core->desiredVideoDimensions(s_core, &width, &height);
     }
-    
+
     uint8_t *buffer;
     int pitch;
-    addVideo(&buffer, &pitch, {(int)width, (int)height});
+    addVideo(&buffer, &pitch, {(int) width, (int) height});
     s_core->setVideoBuffer(s_core, reinterpret_cast<color_t *>(buffer), width);
 
     // audio output
@@ -146,9 +147,9 @@ int PGBAUiEmu::load(const ss_api::Game &game) {
     // load bios if any
     path = getUi()->getIo()->getDataPath() + "bios/gba_bios.bin";
     if (getUi()->getIo()->exist(path)) {
-        struct VFile *bios = VFileOpen(path.c_str(), O_RDONLY);
+        VFile *bios = VFileOpen(path.c_str(), O_RDONLY);
         if (bios) {
-        printf("PGBAUiEmu::load: loading bios: %s\n", path.c_str());
+            printf("PGBAUiEmu::load: loading bios: %s\n", path.c_str());
             s_core->loadBIOS(s_core, bios, 0);
         }
     } else {
@@ -214,8 +215,8 @@ void PGBAUiEmu::stop() {
 void PGBAUiEmu::onUpdate() {
     if (!isPaused()) {
         // inputs
-        auto buttons = getUi()->getInput()->getButtons(0);
-        auto keys = mInputMapKeyBits(&s_core->inputMap, PEMU_INPUT_BINDING, buttons, 0);
+        const auto buttons = getUi()->getInput()->getButtons(0);
+        const auto keys = mInputMapKeyBits(&s_core->inputMap, PEMU_INPUT_BINDING, buttons, 0);
         s_core->setKeys(s_core, keys);
 
         // frame emulation
@@ -232,17 +233,17 @@ void PGBAUiEmu::onUpdate() {
 
         blip_t *audioChannelLeft = s_core->getAudioChannel(s_core, 0);
         blip_t *audioChannelRight = s_core->getAudioChannel(s_core, 1);
-        int samplesAvail = blip_samples_avail(audioChannelLeft);
+        const int samplesAvail = blip_samples_avail(audioChannelLeft);
         if (samplesAvail > 0) {
             audioSamplesPerFrameAvg = (SAMPLES_PER_FRAME_MOVING_AVG_ALPHA * (float) samplesAvail) +
-                                        ((1.0f - SAMPLES_PER_FRAME_MOVING_AVG_ALPHA) * audioSamplesPerFrameAvg);
-            auto samplesToRead = (size_t) audioSamplesPerFrameAvg;
+                                      ((1.0f - SAMPLES_PER_FRAME_MOVING_AVG_ALPHA) * audioSamplesPerFrameAvg);
+            const auto samplesToRead = (size_t) audioSamplesPerFrameAvg;
             if (audioSampleBufferSize < samplesToRead * 2) {
                 audioSampleBufferSize = samplesToRead * 2;
                 audioSampleBuffer = (int16_t *) realloc(audioSampleBuffer, audioSampleBufferSize * sizeof(int16_t));
                 if (!audioSampleBuffer) return;
             }
-            int produced = blip_read_samples(audioChannelLeft, audioSampleBuffer, (int) samplesToRead, true);
+            const int produced = blip_read_samples(audioChannelLeft, audioSampleBuffer, (int) samplesToRead, true);
             blip_read_samples(audioChannelRight, audioSampleBuffer + 1, (int) samplesToRead, true);
             if (produced > 0) {
                 audio->play(audioSampleBuffer, produced);
