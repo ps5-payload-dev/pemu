@@ -26,11 +26,13 @@ pGBA: Portable GameBoy Advance
 ### Installation (switch)
 
 - copy "pgba.nro" file to "/switch/pgba/" directory on sdcard
-- copy roms to "/switch/pgba/roms/" directory on sdcard
+- copy gb roms to "/switch/pgba/gb/" directory on sdcard
+- copy gbc roms to "/switch/pgba/gbc/" directory on sdcard
+- copy gba roms to "/switch/pgba/gba/" directory on sdcard
 
 ### Bios
 
-You need to put gba bios "gba_bios.bin"" in the "bios" directory
+You should put gba bios "gba_bios.bin"" in the "bios" directory
 
 ### Usage (switch)
 
