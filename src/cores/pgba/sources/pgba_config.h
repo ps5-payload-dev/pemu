@@ -19,7 +19,7 @@ public:
     }
 
     std::vector<std::string> getCoreSupportedExt() override {
-        return {".zip", ".gba", ".bin"};
+        return {".zip", ".gba", ".gb", ".gbc", ".bin"};
     }
 };
 

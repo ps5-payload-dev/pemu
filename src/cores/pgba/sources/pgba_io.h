@@ -13,7 +13,9 @@ namespace c2d {
             C2DIo::create(PGBAIo::getDataPath() + "bios");
             C2DIo::create(PGBAIo::getDataPath() + "configs");
             C2DIo::create(PGBAIo::getDataPath() + "saves");
-            C2DIo::create(PGBAIo::getDataPath() + "roms");
+            C2DIo::create(PGBAIo::getDataPath() + "gba");
+            C2DIo::create(PGBAIo::getDataPath() + "gbc");
+            C2DIo::create(PGBAIo::getDataPath() + "gb");
             C2DIo::create(PGBAIo::getDataPath() + "patches");
             C2DIo::create(PGBAIo::getDataPath() + "cheats");
         }

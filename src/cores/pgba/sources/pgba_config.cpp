@@ -16,7 +16,9 @@ PGBAConfig::PGBAConfig(c2d::Io *io, int version) : PEMUConfig(io, "PGBA", versio
     PEMUConfig::load();
 
     // add custom rom path
-    PEMUConfig::addRomPath("GBA", io->getDataPath() + "roms/", {12, 0, "Game Boy Advance"});
+    PEMUConfig::addRomPath("GB", io->getDataPath() + "gb/", {10, 0, "Game Boy"});
+    PEMUConfig::addRomPath("GBC", io->getDataPath() + "gbc/", {11, 0, "Game Boy Color"});
+    PEMUConfig::addRomPath("GBA", io->getDataPath() + "gba/", {12, 0, "Game Boy Advance"});
     PEMUConfig::save();
 
     // create roms paths if needed
