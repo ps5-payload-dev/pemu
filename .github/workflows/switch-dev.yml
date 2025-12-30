@@ -26,8 +26,8 @@ jobs:
 
       - name: Install "fixed" libmpv
         run: |
-          wget https://github.com/Cpasjuste/pacman-packages/releases/download/switch-libmpv-0.41.0/switch-libmpv-0.41.0-1-any.pkg.tar.zst
-          sudo dkp-pacman -U --noconfirm switch-libmpv-0.41.0-1-any.pkg.tar.zst
+          wget https://github.com/Cpasjuste/pacman-packages/releases/download/switch-libmpv-lua-fix/switch-libmpv-0.39.0-3-any.pkg.tar.zst
+          sudo dkp-pacman -U --noconfirm switch-libmpv-0.39.0-3-any.pkg.tar.zst
 
       - name: Configure
         run: |
