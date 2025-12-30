@@ -32,21 +32,21 @@ pFBN: Portable FinalBurn Neo
 - pFBN, as fbneo, support consoles roms. Here is the default configuration for your roms paths:
     ```
     NAME       SYSTEM    SYSTEM_ID     PATH
-    ARCADE = ( "Arcade", "0x12341234", "/media/cpasjuste/Data/emulation/01_roms/fbneo-1.0.0.03-full/arcade/" );
-    CHANNELF = ( "Channel F", "0x21000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/channelf/" );
-    COLECO = ( "ColecoVision", "0x1a000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/coleco/" );
-    FDS = ( "NES FDS", "0x1f000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/fds/" );
-    GAMEGEAR = ( "Sega Game Gear", "0x12000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/gamegear/" );
-    MEGADRIVE = ( "Sega Megadrive", "0x0c000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/megadrive/" );
-    MSX = ( "MSX", "0x1c000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/msx/" );
-    NES = ( "NES", "0x1e000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/nes/" );
-    NGP = ( "Neo Geo Pocket", "0x20000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/ngp/" );
-    PCE = ( "PC Engine", "0x17010000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/pce/" );
-    SG1000 = ( "Sega SG-1000", "0x19000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/sg1000/" );
-    SGX = ( "PC Engine SGX", "0x17030000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/sgx/" );
-    MASTERSYSTEM = ( "Sega Master System", "0x18000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/sms/" );
-    SPECTRUM = ( "ZX Spectrum", "0x1d000000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/spectrum/" );
-    TG16 = ( "PC Engine TG16", "0x17020000", "/home/cpasjuste/dev/multi/pemu/cmake-build-debug/src/cores/pfbneo/tg16/" );
+    ARCADE = ( "Arcade", "0x12341234", "/pfbneo/arcade/" );
+    CHANNELF = ( "Channel F", "0x21000000", "/pfbneo/channelf/" );
+    COLECO = ( "ColecoVision", "0x1a000000", "/pfbneo/coleco/" );
+    FDS = ( "NES FDS", "0x1f000000", "/pfbneo/fds/" );
+    GAMEGEAR = ( "Sega Game Gear", "0x12000000", "/pfbneo/gamegear/" );
+    MEGADRIVE = ( "Sega Megadrive", "0x0c000000", "/pfbneo/megadrive/" );
+    MSX = ( "MSX", "0x1c000000", "/pfbneo/msx/" );
+    NES = ( "NES", "0x1e000000", "/pfbneo/nes/" );
+    NGP = ( "Neo Geo Pocket", "0x20000000", "/pfbneo/ngp/" );
+    PCE = ( "PC Engine", "0x17010000", "/pfbneo/pce/" );
+    SG1000 = ( "Sega SG-1000", "0x19000000", "/pfbneo/sg1000/" );
+    SGX = ( "PC Engine SGX", "0x17030000", "/pfbneo/sgx/" );
+    MASTERSYSTEM = ( "Sega Master System", "0x18000000", "/pfbneo/sms/" );
+    SPECTRUM = ( "ZX Spectrum", "0x1d000000", "/pfbneo/spectrum/" );
+    TG16 = ( "PC Engine TG16", "0x17020000", "/pfbneo/tg16/" );
     ```
   Please note that, unlike other pEMU emulators, **you need to use [a specific system id (HARDWARE_XXX)](https://github.com/finalburnneo/FBNeo/blob/36092078ac2ba48acf2105d2cad8310ab2236224/src/burn/burn.h#L494) for each system**.
 The "Arcade" system id "0x12341234" is a special case, arcade roms found in this path will get their system/id from fbneo internal drivers database.
