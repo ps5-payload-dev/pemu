@@ -16,6 +16,8 @@ set(OPTION_ZIP ON CACHE BOOL "Build with zip support")
 set(OPTION_JMA OFF CACHE BOOL "Build with jma support")
 set(OPTION_DEBUGGER OFF CACHE BOOL "Build with debugger support")
 
+set(CMAKE_CXX_STANDARD 17)
+
 set(SNES9X_INC
         ${CMAKE_SOURCE_DIR}/external/cores/snes9x
         ${CMAKE_SOURCE_DIR}/external/cores/snes9x/apu
