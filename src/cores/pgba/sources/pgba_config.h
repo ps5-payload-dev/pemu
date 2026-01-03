@@ -18,6 +18,12 @@ public:
         return std::string(projectName) + projectVersion;
     }
 
+    std::vector<int> getCoreHiddenOptionToEnable() override {
+        return {
+            PEMUConfig::OptId::UI_FILTER_SYSTEM
+        };
+    }
+
     std::vector<std::string> getCoreSupportedExt() override {
         return {".zip", ".gba", ".gb", ".gbc", ".bin"};
     }
