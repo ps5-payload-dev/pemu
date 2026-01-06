@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: |
           /opt/ps5-payload-sdk/bin/prospero-cmake -DCMAKE_BUILD_TYPE=Release -DPLATFORM_PS5=YES -DOPTION_MPV_PLAYER=NO -S . -B build
-           make -C build psnes_ps5_release
+           make -C build pgba_ps5_release
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
