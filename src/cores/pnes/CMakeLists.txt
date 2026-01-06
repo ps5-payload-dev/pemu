@@ -96,6 +96,11 @@ elseif (PLATFORM_LINUX)
     # LINUX
     #####################
     list(APPEND NESTOPIA_CFLAGS -DNST_DATADIR="/tmp/c2d_romfs")
+elseif (PLATFORM_PS5)
+    #####################
+    # PS5 PLATFORM
+    #####################
+    list(APPEND NESTOPIA_CFLAGS -DNST_DATADIR="data_romfs")
 elseif (PLATFORM_WINDOWS)
     #####################
     # WINDOWS
