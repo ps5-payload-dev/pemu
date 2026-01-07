@@ -81,6 +81,11 @@ elseif (PLATFORM_PS4)
     set(PS4_PKG_TITLE_ID "PGEN00001")
     set(PS4_PKG_VERSION "${VERSION_MAJOR}.${VERSION_MINOR}")
     list(APPEND GENESIS_CFLAGS -DHAVE_SYS_PARAM_H)
+elseif (PLATFORM_PS5)
+    #####################
+    # PS5 PLATORM
+    #####################
+    list(APPEND GENESIS_CFLAGS -Dflac_min=MIN -Dflac_max=MAX)
 elseif (PLATFORM_SWITCH)
     #####################
     # SWITCH PLATORM
